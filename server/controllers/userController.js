@@ -2,6 +2,7 @@ const User=require('../models/User');
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const colors=require('colors');
+const { json } = require('express');
 const dotenv=require('dotenv').config();
 
 const registerUser=async(req,res)=>{
@@ -52,9 +53,6 @@ const registerUser=async(req,res)=>{
         });
 
 
-
-
-        res.json(newUser);
         
 
     }catch(error){
@@ -65,10 +63,44 @@ const registerUser=async(req,res)=>{
 
 const loginUser=async(req,res)=>{
     try{
+        const {email,password}=req.body;
+        let toasts=[];
+        //checks on the body received from the front end
+        if(!password) toasts.push({message: 'A valid password is required ',type:'error'});
+        if(password && (password.length<8 || password.length>12)) toasts.push({message: 'Password must be at least 8-12 characters long',type:'error'});
+        if(!email || !validatedEmail(email)) toasts.push({message: 'A valid email is required ',type:'error'});
+        
+        if(toasts.length>0) return res.status(400).json({toasts});
+
+        //first checking weather the user exists or not
+        let user=await User.findOne({email});
+        if(!user) return res.status(400).json([{message:'User does not exist', type:'error'}])
+
+        //if user exists will varify the password now
+        //password is password coming from bidy and user.password is password stored in backend
+        const isMatch=await bcrypt.compare(password,user.password);
+
+        if(!isMatch) return res.status(400).json([{message:'Invalid credentials', type:'error'}]);
+
+        //now will create token
+        const payload={
+            user:{
+                id:user._id
+            }
+        }
+
+        jwt.sign(payload,process.env.JWT_SECRET,{
+            expiresIn: 28800
+        },(err,token)=>{
+            if(err) throw err;
+            res.json(token);
+        });
+
+
 
     }catch(error){
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
-        res.statu(500).send('Server Error');
+        res.status(500).send('Server Error');
     }
 }
 
