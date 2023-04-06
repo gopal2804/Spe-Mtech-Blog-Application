@@ -10,7 +10,6 @@ app.use(express.json({extended:false}));
 
 const username=process.env.DB_USERNAME;
 const password=process.env.DB_PASSWORD;
-console.log(username);
 const URL=`mongodb+srv://${username}:${password}@blog-app.mjhbiw5.mongodb.net/?retryWrites=true&w=majority`;
 
 const connectDB=async()=>{

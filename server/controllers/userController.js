@@ -106,6 +106,17 @@ const loginUser=async(req,res)=>{
 
 const getProfile=async(req,res)=>{
     try{
+        //to access the profile we have to send the token first using get request from front end
+        //for that we have to make the middleware
+
+        const user=await User.findById(req.user.id)
+        //not sending the password field , __v field , createdAt field , updatedAt field
+        .select('-password').select('-__v')
+        .select('-createdAt').select('-updatedAt');
+
+        if(!user) return res.status(404).json({message:'User does not exist',type:'error'});
+        
+        res.json(user);
 
     }catch(error){
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);

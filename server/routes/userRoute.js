@@ -1,5 +1,6 @@
 const express=require('express');
 const router=express.Router();
+const auth=require('../middleware/authMiddleware');
 
 const{
     registerUser,
@@ -11,6 +12,10 @@ router.post('/register',registerUser);
 
 router.post('/login',loginUser);
 
-router.get('/profile',getProfile);
+//passing auth here in order to privatising the profile 
+//during this api call , first it will go through the middleware and verify weather the token exists or not and if exists then it will check weather the token is correct or not
+//then will go to the controller
+//it valid token then it will return the user
+router.get('/profile',[auth],getProfile);
 
 module.exports=router;
