@@ -4,7 +4,7 @@ const colors=require('colors');
 //get the blog by user id
 //afte the token verification user can only access the blog
 //access-private
-const getBlog=async(req,res)=>{
+const getBlogs=async(req,res)=>{
     try{
         const blogs=await Blog.find({user:req.user.id});
         res.json(blogs);
@@ -24,11 +24,16 @@ const createBlog=async(req,res)=>{
             content,
             user:req.user.id
         });
-        const blog=await newBlog.save();
-        res.json(blog);
+        await newBlog.save();
+
+        //if some error arised while saving the blog
+        if(!newBlog) return res.status(400).json({message: 'Blog not created', type:'error'});
+
+        res.json(newBlog);
+
     }catch(error){
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
-        res.statu(500).send('Server Error');
+        res.status(500).send('Server Error');
     }
 }
 
@@ -37,7 +42,12 @@ const createBlog=async(req,res)=>{
 const updateBlog=async(req,res)=>{
     try{
         const {title,content}=req.body;
+        //passing user id for token and blog id for searching
+        //after updating will return a new object
+        //blog id is coming from front end (from url)
         const blog=await Blog.findOneAndUpdate({_id:req.params.id,user:req.user.id},{title,content},{new : true});
+
+        
         res.json(blog);
 
     }catch(error){
@@ -50,10 +60,12 @@ const updateBlog=async(req,res)=>{
 //access-private
 const deteleBlog=async(req,res)=>{
     try{
-        res.send('deleting blog');
+
+        const blog=await Blog.findOneAndDelete({_id:req.params.id,user:req.user.id});
+        res.status(200).json([{message:'Blog deleted successfully',type:'success'}]);
     }catch(error){
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
-        res.statu(500).send('Server Error');
+        res.status(500).send('Server Error');
     }
 }
 
@@ -61,5 +73,5 @@ module.exports={
     deteleBlog,
     updateBlog,
     createBlog,
-    getBlog
+    getBlogs
 }
