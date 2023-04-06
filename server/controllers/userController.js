@@ -5,6 +5,7 @@ const colors=require('colors');
 const { json } = require('express');
 const dotenv=require('dotenv').config();
 
+//access-public
 const registerUser=async(req,res)=>{
     try{
         const { firstName, lastName, email, password}=req.body;
@@ -61,6 +62,7 @@ const registerUser=async(req,res)=>{
     }
 }
 
+//access-public
 const loginUser=async(req,res)=>{
     try{
         const {email,password}=req.body;
@@ -104,6 +106,7 @@ const loginUser=async(req,res)=>{
     }
 }
 
+//access-private
 const getProfile=async(req,res)=>{
     try{
         //to access the profile we have to send the token first using get request from front end
