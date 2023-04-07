@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
-
+import { ToastContainer, Zoom,Slide,Bounce,Flip } from 'react-toastify';
 
 // #region ------------------[Import Components]------------------
 import BlogDetail from './pages/BlogDetail';
@@ -12,6 +12,17 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import PrivateRoute from './pages/PrivateRoute';
 // #endregion
+
+function trasitionAnimation(){
+  const list=[Zoom, Slide, Bounce, Flip];
+  return list[Math.floor(Math.random()*list.length)];
+
+} 
+
+function trasitionPosition(){
+  const list=['top-right','top-center','top-left'];
+  return list[Math.floor(Math.random()*list.length)];
+}
 
 function App() {
   return (
@@ -42,8 +53,15 @@ function App() {
 
         </Routes>
       </Router>
+
+      <ToastContainer 
+        position={trasitionPosition()} autoClose={2000} 
+        hideProgressBar={false} newestOnTop closeOnClick
+        rtl={false} pauseOnFocusLoss={false} draggable pauseOnHover
+        transition={trasitionAnimation()} 
+      />
     </div>
   );
-}
+} 
 
 export default App;

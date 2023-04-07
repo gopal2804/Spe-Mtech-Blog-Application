@@ -21,7 +21,7 @@ const registerUser=async(req,res)=>{
 
         if(!email || !validatedEmail(email)) toasts.push({message: 'A valid email is required ',type:'error'});
 
-        if(toasts.length>0) return res.status(400).json({toasts});
+        if(toasts.length>0) return res.status(400).json(toasts);
 
         //checking if the user already exists
         let newUser=await User.findOne({email});
