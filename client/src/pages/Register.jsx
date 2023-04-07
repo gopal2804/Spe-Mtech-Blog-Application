@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react'
 import { Grid, TextField, Button, Typography, Container, CssBaseline, Box, Avatar,InputAdornment } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
 import {toast, toasts} from 'react-toastify';
+import Copyright from '../components/Copyright';
 
 
 // #region Icons begin
@@ -22,11 +23,11 @@ export default function Register() {
   //hooks
   const navigate=useNavigate();
   const [user,setUser]=useState({
-    firstName:'Peter',
-    lastName:'Pan',
-    email:'gopal@gmail.com',
-    password:'123',
-    confirmPassword:'123'
+    firstName:'',
+    lastName:'',
+    email:'',
+    password:'',
+    confirmPassword:''
   });
 
   const [showPassword, setShowPassword]=useState({
@@ -66,7 +67,7 @@ export default function Register() {
     <Container maxWidth="xs">
       <CssBaseline />
       <Box sx={{
-        marginTop: 8, display: 'flex',
+        mt: 8, display: 'flex', mb: 6,
         flexDirection: 'column', alignItems: 'center'
       }}
       >
@@ -121,6 +122,7 @@ export default function Register() {
         </Grid>
 
       </Box>
+      <Copyright/>
     </Container>
   )
 }

@@ -72,7 +72,7 @@ const loginUser=async(req,res)=>{
         if(password && (password.length<8 || password.length>12)) toasts.push({message: 'Password must be at least 8-12 characters long',type:'error'});
         if(!email || !validatedEmail(email)) toasts.push({message: 'A valid email is required ',type:'error'});
         
-        if(toasts.length>0) return res.status(400).json({toasts});
+        if(toasts.length>0) return res.status(400).json(toasts);
 
         //first checking weather the user exists or not
         let user=await User.findOne({email});
