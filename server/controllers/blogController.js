@@ -65,16 +65,10 @@ const updateBlog=async(req,res)=>{
 
 //delete blog
 //access-private
-const deteleBlog=async(req,res)=>{
+const deleteBlog=async(req,res)=>{
     try{
 
         const blog=await Blog.findOneAndDelete({_id:req.params.id,user:req.user.id});
-        if(!blog) return res.status(400).json([
-            {
-                message: 'Blog Not Found',
-                type:'error'
-            }
-        ])
         res.json({
             blogId: req.params.id,
             toasts: [{message:'Blog deleted successfully',type:'success'}]});
@@ -85,7 +79,7 @@ const deteleBlog=async(req,res)=>{
 }
 
 module.exports={
-    deteleBlog,
+    deleteBlog,
     updateBlog,
     createBlog,
     getBlogs,

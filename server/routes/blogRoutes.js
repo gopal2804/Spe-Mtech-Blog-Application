@@ -6,7 +6,7 @@ const{
     getBlogs,
     createBlog,   
     updateBlog,
-    deteleBlog,
+    deleteBlog,
     getBlogById
 }=require('../controllers/blogController');
 
@@ -16,7 +16,7 @@ router.post('/create',[auth],createBlog);
 
 router.put('/update/:id',[auth],updateBlog);
 
-router.delete('/delete/:id',[auth],deteleBlog);
+router.delete('/delete/:id',[auth],deleteBlog);
 
 router.get('/:id',[auth],getBlogById);
 

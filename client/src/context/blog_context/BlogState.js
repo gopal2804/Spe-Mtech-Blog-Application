@@ -77,9 +77,9 @@ export default function BlogState(props){
         }
     }
 
-    const deteleBlog=async(blogData)=>{
+    const deleteBlog=async(blogId)=>{
         try{
-            const res=await axios.delete(`/api/blogs/delete/${blogData._id}`,blogData,config);
+            const res=await axios.delete(`/api/blogs/delete/${blogId}`,config);
             dispatch({
                 type: ActionTypes.BLOG_DELETE,
                 payload: res.data
@@ -113,7 +113,7 @@ export default function BlogState(props){
         getBlogById,
         createBlog,
         updateBlog,
-        deteleBlog,
+        deleteBlog,
         clearErrors,
         clearBlogs
     }}>
