@@ -129,20 +129,11 @@ export default function PrimarySearchAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{ display: { xs: 'none', sm: 'block' } , color:'white'}}
                     >
                         Blog Application
                     </Typography>
@@ -151,7 +142,7 @@ export default function PrimarySearchAppBar() {
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {authenticated.map(page=>(
                             <Button key={page} variant='text'
-                                sx={{my:2, color:'white',display:'block'}}
+                                sx={{my:2,display:'block'}}
                                 onClick={()=>navigate(`/${page.toLowerCase()}`)}
                             >
                                 {page}

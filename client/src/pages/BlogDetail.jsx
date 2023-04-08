@@ -67,7 +67,7 @@ export default function BlogDetail() {
     return (
       <Stack spacing={2}>
         <Stack spacing={2} direction='row'>
-          <Typography variant='h5' sx={{ flexGrow: 1 }}>{blog?.title}</Typography>
+        <TextField value={blog?.title} disabled multiline label="Title" sx={{flexGrow:1}}/>
           <IconButton onClick={handleEdit}>
             <EditIcon />
           </IconButton>
@@ -75,7 +75,7 @@ export default function BlogDetail() {
             <DeleteForeverIcon />
           </IconButton>
         </Stack>
-        <Typography variant='p'>{blog?.content}</Typography>
+        <TextField value={blog?.content} disabled multiline label="Content"/>
       </Stack>
     )
   }
@@ -83,7 +83,7 @@ export default function BlogDetail() {
   return (
     <MainContainer>
       <Container maxWidth='md' sx={{ mt: 4, mb: 8 }}>
-        <Paper sx={{backgroundColor: !edit ? 'silver' : ''}}>
+        <Paper>
           {!edit ? displayDisabled() :     
             <Stack spacing={2}>
               <TextField label='Title' name='title' value={blog?.title} onChange={(e) => setBlog({ ...blog, title: e.target.value })} />
@@ -93,7 +93,7 @@ export default function BlogDetail() {
 
               <Stack spacing={2} direction='row'>
                 <Button variant='contained' onClick={handleUpdate}>Update</Button>
-                <Button variant='outlined' onClick={handleCancel}>Cancel</Button>
+                <Button variant='outlined' sx={{color:'primary.main'}} onClick={handleCancel}>Cancel</Button>
               </Stack>
             </Stack>
           }
