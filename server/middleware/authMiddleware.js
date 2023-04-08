@@ -7,7 +7,7 @@ module.exports=function (req,res,next){
     const token=req.header('x-auth-token');
 
     //check if not token
-    if(!token) return res.status(400).json({message:'No token, authorization denied',type:'error'});
+    if(!token) return res.status(400).json([{message:'No token, authorization denied',type:'error'}]);
 
     //varify token
     try{
@@ -20,7 +20,7 @@ module.exports=function (req,res,next){
     }catch(error){
         //401 indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
         //401 means token is not valid
-        res.status(401).json({message:'Token is not valid',type:'error'});
+        res.status(401).json([{message:'Token is not valid',type:'error'}]);
     }
 
 }

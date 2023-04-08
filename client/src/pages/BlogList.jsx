@@ -27,12 +27,11 @@ export default function BlogList() {
       setMyBlogs(blogs)
     }
 
-    if (toasts) {
-      // toasts.forEach(ele => {
-      //   toast(ele.message, { type: ele.type });
-      // });
-      clearErrors();
-    }
+    if(toasts) {
+      toasts.forEach(ele => {
+        toast(ele.message, { type: ele.type })
+    });
+  }
 
 
   }, [toasts, clearErrors, blogs, getBlogs])
