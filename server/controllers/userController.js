@@ -117,7 +117,7 @@ const getProfile=async(req,res)=>{
         .select('-password').select('-__v')
         .select('-createdAt').select('-updatedAt');
 
-        if(!user) return res.status(404).json({message:'User does not exist',type:'error'});
+        if(!user) return res.status(404).json([{message:'User does not exist',type:'error'}]);
         
         res.json(user);
 

@@ -36,7 +36,7 @@ const createBlog=async(req,res)=>{
         await newBlog.save();
 
         //if some error arised while saving the blog
-        if(!newBlog) return res.status(400).json({message: 'Blog not created', type:'error'});
+        if(!newBlog) return res.status(400).json([{message: 'Blog not created', type:'error'}]);
 
         res.json(newBlog);
 

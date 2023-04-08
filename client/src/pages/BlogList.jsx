@@ -16,7 +16,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Masonry from '@mui/lab/Masonry/Masonry';
 
 export default function BlogList() {
-  const { getBlogs, toasts, clearErrors, blogs } = useBlog();
+  const { getBlogs, toasts, clearErrors, blogs ,clearCurrentBlog} = useBlog();
   const [myBlogs, setMyBlogs] = useState([]);
   const navigate = useNavigate();
 
@@ -37,16 +37,16 @@ export default function BlogList() {
 
   }, [toasts, clearErrors, blogs, getBlogs])
 
+
+  const onCreateNewBlog=()=>{
+    clearCurrentBlog();
+    navigate('/newblog')
+  }
   return (
     <MainContainer>
       <Container maxWidth="lg" sx={{ py: 1, my: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={false} md={3}>
-
-            <Stack spacing={2} sx={{ display: 'flex' }} direction='row'>
-              <Box sx={{ flexGrow: 1 }} />
-              <Button fullWidth={false} onClick={() => navigate('/newblog')}>Create Blog</Button>
-            </Stack>
 
             <List sx={{backgroundColor:'silver', borderRadius: 5, mt:3}}>
               {myBlogs.map(blog=>(
@@ -62,6 +62,9 @@ export default function BlogList() {
           </Grid>
 
           <Grid item xs={12} md={9}>
+                <Box sx={{display: 'flex', justifyContent:'flex-end',mb:2}}>
+                  <Button onClick={onCreateNewBlog}>Create Blog</Button>
+                </Box>
                 <Masonry columns={2}>
                   {myBlogs?.map(blog=>(
                     <BlogCard blog={blog} key={blog._id}/>

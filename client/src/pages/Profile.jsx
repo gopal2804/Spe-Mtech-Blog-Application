@@ -5,9 +5,10 @@ import { useAuth } from '../middleware/ContextHooks';
 import MainContainer from '../components/MainContainer';
 // #endregioon
 export default function Profile() {
-  const { currentUser, getProfile } = useAuth();
+  const { currentUser, getProfile,updateUser } = useAuth();
   const [profile, setProfile] = useState({})
   const [isDisabled, setIsDisabled] = useState(true);
+  const [temp,setTemp] =useState(null);
   useEffect(() => {
     if (!currentUser) {
       getProfile();
@@ -20,14 +21,18 @@ export default function Profile() {
 
   const handleDisabled=e=>{
     setIsDisabled(false);
+    setTemp(profile);
   }
 
   const handleCancel=e=>{
     setIsDisabled(true);
+    setProfile(temp);
+    setTemp(null);
   }
 
   const handleUpdate=e=>{
     setIsDisabled(true);
+    updateUser(profile);
   }
   return (
     <MainContainer>

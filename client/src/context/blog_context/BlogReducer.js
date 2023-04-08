@@ -46,12 +46,16 @@ export default (state,action)=>{
         case ActionTypes.CLEAR_BLOGS:
             return{
                 ...state,
-                blogs:null  
+                blogs:null,
+                currentBlog:null,
+                blogCreated:false,
+                toasts:null  
             }
         case ActionTypes.CLEAR_CURRENT_BLOG:
             return{
                 ...state,
-                currentBlog:null
+                currentBlog:null,
+                blogCreated: false
             }
         default:
             return state;
