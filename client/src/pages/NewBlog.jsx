@@ -21,7 +21,7 @@ export default function NewBlog() {
     title: '',
     content: ''
   });
-  const { toasts, clearErrors, createBlog, blogs, getBlogs } = useBlog();
+  const { toasts, clearErrors, createBlog, blogs, getBlogs,clearCurrentBlog,blogCreated,currentBlog } = useBlog();
 
   const [onGenerate, setOnGenerate] = useState(false);
 
@@ -30,7 +30,6 @@ export default function NewBlog() {
   const handleSave = () => {
     if (newBlog.title.length > 0 && newBlog.content.length > 0) {
       createBlog(newBlog);
-      navigate('/blogs')
     } else {
       toast('Please fill out all fields', { type: 'error' });
     }
@@ -47,7 +46,14 @@ export default function NewBlog() {
       });
       clearErrors();
     }
-  }, [toasts, clearErrors, blogs, getBlogs])
+
+    if(blogCreated){
+      const id=currentBlog._id;
+      navigate(`/blogs/${id}`)
+    }
+
+
+  }, [toasts, clearErrors, blogs, getBlogs,blogCreated,currentBlog,navigate])
 
 
   const [loremOptions, setLoremOptions] = useState({

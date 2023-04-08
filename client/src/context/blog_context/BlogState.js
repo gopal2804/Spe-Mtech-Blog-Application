@@ -10,6 +10,7 @@ export default function BlogState(props){
         blogs: null,
         currentBlog: null,
         toasts: null,
+        blogCreated: false
     }
 
     const [state,dispatch] = useReducer(BlogReducer,initialState);
@@ -106,12 +107,20 @@ export default function BlogState(props){
     }
 
     const clearErrors=async()=>{
-
-    }
+        dispatch({
+            type: ActionTypes.CLEAR_ERRORS
+        })
+    }   
 
     const clearBlogs=async()=>{
         dispatch({
             type:ActionTypes.CLEAR_BLOGS
+        })
+    }
+
+    const clearCurrentBlog=()=>{
+        dispatch({
+            type: ActionTypes.CLEAR_CURRENT_BLOG
         })
     }
     // #endregion
@@ -121,6 +130,9 @@ export default function BlogState(props){
         blogs: state.blogs,
         currentBlog: state.currentBlog,
         toasts: state.toasts,
+        blogCreated: state.blogCreated,
+
+        clearCurrentBlog,
         getBlogs,
         getBlogById,
         createBlog,

@@ -8,6 +8,7 @@ export default (state,action)=>{
             return {
                 ...state,
                 currentBlog: action.payload,
+                blogCreated: true,
                 blogs: [...blogs,action.payload]
             }
         case ActionTypes.GET_BLOGS_SUCCESS:
@@ -46,6 +47,11 @@ export default (state,action)=>{
             return{
                 ...state,
                 blogs:null  
+            }
+        case ActionTypes.CLEAR_CURRENT_BLOG:
+            return{
+                ...state,
+                currentBlog:null
             }
         default:
             return state;
