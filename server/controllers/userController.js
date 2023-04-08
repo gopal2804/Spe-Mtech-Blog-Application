@@ -127,6 +127,24 @@ const getProfile=async(req,res)=>{
     }
 }
 
+const updateUser=async(req,res)=>{
+    try{    
+        const userId=req.params.id;
+        if(userId!==req.user.id){
+            return res.status(401).json([{message: 'Unauthorized Action', type:'error'}]);
+        }
+
+        let user=await User.findOneAndUpdate({_id:userId},req.body,{new:true});
+
+        if(!user) return res.status(404).json([{message: 'User does not exist', type:'error'}]);
+
+        res.json(user);
+    }catch(error){
+        console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
+        res.statu(500).send('Server Error');
+    }
+}
+
 function validatedEmail(email){
     const regex=/\S+@\S+\.\S+/;
     return regex.test(email);
@@ -135,5 +153,6 @@ function validatedEmail(email){
 module.exports={
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    updateUser
 }

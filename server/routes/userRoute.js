@@ -5,7 +5,8 @@ const auth=require('../middleware/authMiddleware');
 const{
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    updateUser
 }=require('../controllers/userController');
 
 router.post('/register',registerUser);
@@ -17,5 +18,7 @@ router.post('/login',loginUser);
 //then will go to the controller
 //it valid token then it will return the user
 router.get('/profile',[auth],getProfile);
+
+router.put('/update/:id',[auth],updateUser);
 
 module.exports=router;
