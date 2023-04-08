@@ -54,9 +54,7 @@ const updateBlog=async(req,res)=>{
         //passing user id for token and blog id for searching
         //after updating will return a new object
         //blog id is coming from front end (from url)
-        const blog=await Blog.findOneAndUpdate({_id:req.params.id,user:req.user.id},{title,content},{new : true});
-
-        
+        const blog=await Blog.findOneAndUpdate({_id:req.params.id,user:req.user.id},{title,content},{new : true});  
         res.json(blog);
 
     }catch(error){

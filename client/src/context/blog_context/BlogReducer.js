@@ -22,6 +22,7 @@ export default (state,action)=>{
         case ActionTypes.UPDATE_BLOG_SUCCESS:
             return{
                 ...state,
+                currentBlog:action.payload,
                 blogs: state.blogs.map(blog=>blog._id===action.payload._id ? action.payload: blog)
             }
         case ActionTypes.BLOG_DELETE:
@@ -43,7 +44,7 @@ export default (state,action)=>{
         case ActionTypes.CLEAR_BLOGS:
             return{
                 ...state,
-                blogs:null
+                blogs:null  
             }
         default:
             return state;

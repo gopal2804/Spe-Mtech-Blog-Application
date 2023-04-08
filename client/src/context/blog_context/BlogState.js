@@ -57,16 +57,40 @@ export default function BlogState(props){
         }
     }
 
-    const createBlog=async()=>{
+    const createBlog=async(blogData)=>{
 
     }
 
-    const updateBlog=async()=>{
-
+    const updateBlog=async(blogData)=>{
+        try{
+            const res=await axios.put(`/api/blogs/update/${blogData._id}`,blogData,config);
+            dispatch({
+                type:ActionTypes.UPDATE_BLOG_SUCCESS,
+                payload:res.data
+            })
+        }catch(error){
+            console.log(error.response.data);
+            dispatch({
+                type:ActionTypes.BLOGS_FAIL,
+                payload: error.response.data
+            })
+        }
     }
 
-    const deteleBlog=async()=>{
-
+    const deteleBlog=async(blogData)=>{
+        try{
+            const res=await axios.delete(`/api/blogs/delete/${blogData._id}`,blogData,config);
+            dispatch({
+                type: ActionTypes.BLOG_DELETE,
+                payload: res.data
+            })
+        }catch(error){
+            console.log(error.response.data);
+            dispatch({
+                type:ActionTypes.BLOGS_FAIL,
+                payload: error.response.data
+            }) 
+        }
     }
 
     const clearErrors=async()=>{
