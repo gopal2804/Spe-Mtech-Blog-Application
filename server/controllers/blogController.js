@@ -14,6 +14,15 @@ const getBlogs=async(req,res)=>{
     }
 }
 
+const getBlogById=async(req,res)=>{
+    try{
+        const blog=await Blog.findOne({_id:req.params.id, user:req.user.id});
+        res.json(blog);
+    }catch(error){
+        console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
+        res.status(500).send('Server Error');
+    }
+}
 //creating the blog
 //access-private
 const createBlog=async(req,res)=>{
@@ -62,6 +71,12 @@ const deteleBlog=async(req,res)=>{
     try{
 
         const blog=await Blog.findOneAndDelete({_id:req.params.id,user:req.user.id});
+        if(!blog) return res.status(400).json([
+            {
+                message: 'Blog Not Found',
+                type:'error'
+            }
+        ])
         res.json({
             blogId: req.params.id,
             toasts: [{message:'Blog deleted successfully',type:'success'}]});
@@ -75,5 +90,6 @@ module.exports={
     deteleBlog,
     updateBlog,
     createBlog,
-    getBlogs
+    getBlogs,
+    getBlogById 
 }

@@ -41,8 +41,20 @@ export default function BlogState(props){
         }
     }
 
-    const getBlogById=async()=>{
-
+    const getBlogById=async(blogId)=>{
+        try{
+            const res=await axios.get(`/api/blogs/${blogId}`,config);
+            dispatch({
+                type: ActionTypes.GET_BLOG_BY_ID,
+                payload: res.data
+            })
+        }catch(error){
+            console.log(error.response.data);
+            dispatch({
+                type: ActionTypes.BLOGS_FAIL,
+                payload:error.response.data
+            })
+        }
     }
 
     const createBlog=async()=>{
