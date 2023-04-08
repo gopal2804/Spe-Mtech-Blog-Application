@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../middleware/ContextHooks';
+import { useAuth ,useBlog} from '../middleware/ContextHooks';
 import { Button } from '@mui/material';
 
 // #regionbegin ---------------ICONS-------------
@@ -24,6 +24,7 @@ const authenticated = ['Blogs', 'Profile'];
 
 export default function PrimarySearchAppBar() {
     const {logoutUser}=useAuth();
+    const {clearBlogs}=useBlog();
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -52,6 +53,7 @@ export default function PrimarySearchAppBar() {
         handleMenuClose();
         logoutUser();
         navigate('/login');
+        clearBlogs();
     }
 
     const menuId = 'primary-search-account-menu';

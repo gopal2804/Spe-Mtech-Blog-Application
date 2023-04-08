@@ -62,7 +62,9 @@ const deteleBlog=async(req,res)=>{
     try{
 
         const blog=await Blog.findOneAndDelete({_id:req.params.id,user:req.user.id});
-        res.status(200).json([{message:'Blog deleted successfully',type:'success'}]);
+        res.json({
+            blogId: req.params.id,
+            toasts: [{message:'Blog deleted successfully',type:'success'}]});
     }catch(error){
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
