@@ -22,15 +22,15 @@ export default function BlogList() {
 
   useEffect(() => {
     if (!blogs) {
-      getBlogs()
+      getBlogs();
     } else {
       setMyBlogs(blogs)
     }
 
     if (toasts) {
-      toasts.forEach(ele => {
-        toast(ele.message, { type: ele.type })
-      });
+      // toasts.forEach(ele => {
+      //   toast(ele.message, { type: ele.type });
+      // });
       clearErrors();
     }
 
