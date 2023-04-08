@@ -31,7 +31,7 @@ export default function BlogDetail() {
       getBlogById(id);
     }
 
-    if(Array.isArray(toasts)) {
+    if(toasts) {
         toasts.forEach(ele => {
           toast(ele.message, { type: ele.type })
       });

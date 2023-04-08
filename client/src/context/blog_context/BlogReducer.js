@@ -7,6 +7,7 @@ export default (state,action)=>{
             let blogs=state.blogs ? state.blogs: [];
             return {
                 ...state,
+                currentBlog: action.payload,
                 blogs: [...blogs,action.payload]
             }
         case ActionTypes.GET_BLOGS_SUCCESS:

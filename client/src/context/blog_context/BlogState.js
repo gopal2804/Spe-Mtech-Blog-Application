@@ -58,7 +58,19 @@ export default function BlogState(props){
     }
 
     const createBlog=async(blogData)=>{
-
+        try{
+            const res=await axios.post('/api/blogs/create',blogData,config);
+            dispatch({
+                type: ActionTypes.NEW_BLOG_SUCCESS,
+                payload: res.data
+            })
+        }catch(error){
+            console.log(error.response.data);
+            dispatch({
+                type: ActionTypes.BLOGS_FAIL,
+                payload: error.response.data
+            })
+        }
     }
 
     const updateBlog=async(blogData)=>{
@@ -108,7 +120,7 @@ export default function BlogState(props){
     <BlogContext.Provider value={{
         blogs: state.blogs,
         currentBlog: state.currentBlog,
-        toasts:state.toasts,
+        toasts: state.toasts,
         getBlogs,
         getBlogById,
         createBlog,
