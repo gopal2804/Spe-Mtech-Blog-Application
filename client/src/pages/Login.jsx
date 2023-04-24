@@ -35,14 +35,14 @@ export default function Login() {
   useEffect(()=>{
     if(isAuthenticated) navigate('/blogs')
 
-    // if(toasts){
-    //   toasts.forEach(ele => {
-    //       toast(ele.message,{
-    //         type: ele.type
-    //       })
-    //   });
-    //   clearErrors();
-    // }
+    if(toasts){
+      toasts.forEach(ele => {
+          toast(ele.message,{
+            type: ele.type
+          })
+      });
+      clearErrors();
+    }
   },[toasts,isAuthenticated,clearErrors,navigate])
 
   //api

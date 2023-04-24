@@ -16,7 +16,7 @@ import { useBlog } from '../middleware/ContextHooks';
 export default function BlogDetail() {
   const navigate=useNavigate();
   const { id } = useParams();
-  const { blogs,currentBlog, getBlogById, toasts, clearToasts ,deleteBlog,updateBlog,getBlogs} = useBlog();
+  const { blogs,currentBlog, getBlogById, toasts, clearErrors ,deleteBlog,updateBlog,getBlogs} = useBlog();
   const [edit, setEdit] = useState(false);
   const [blog, setBlog] = useState(null);
   const [temp, setTemp] = useState(null);
@@ -31,16 +31,17 @@ export default function BlogDetail() {
       getBlogById(id);
     }
 
-    // if(toasts) {
-    //     toasts.forEach(ele => {
-    //       toast(ele.message, { type: ele.type })
-    //   });
-    // }
+    if(toasts) {
+        toasts.forEach(ele => {
+          toast(ele.message, { type: ele.type })
+      });
+      clearErrors();
+    }
 
     if (currentBlog?._id === id) {
       setBlog(currentBlog);
     }
-  }, [currentBlog, id, toasts, clearToasts, getBlogById,blogs,getBlogs])
+  }, [currentBlog, id, toasts, clearErrors, getBlogById,blogs,getBlogs])
 
   const handleDelete = () => {
     deleteBlog(blog._id);

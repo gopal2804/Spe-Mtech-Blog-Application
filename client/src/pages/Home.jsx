@@ -6,6 +6,7 @@ import { Grid, TextField, Button, Typography, Container, CssBaseline, Box, Avata
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, toasts } from 'react-toastify';
 import Copyright from '../components/Copyright';
+import axios from 'axios';
 
 
 // #region Icons begin
@@ -21,7 +22,9 @@ import { useAuth } from '../middleware/ContextHooks';
 
 
 export default function Home() {
+  
   const { loginUser, clearErrors, toasts, isAuthenticated } = useAuth();
+  const [imageUrl, setImageUrl] = useState('');
 
   //hooks
   const navigate = useNavigate();
@@ -33,16 +36,32 @@ export default function Home() {
   const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
+
+  
+    async function getRandomImage() {
+      try {
+        const response = await axios.get('https://api.unsplash.com/search/photos?page=1&query=blog&client_id=K8FtRr04AKsjkBpydAJwz2tJr_vmao0TxuKU65WxYGc')
+        setImageUrl(response.data.results[Math.floor(Math.random()*9)+1].urls.regular);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    
+
+    getRandomImage();
+
+
     if (isAuthenticated) navigate('/blogs')
 
-    // if (toasts) {
-    //   toasts.forEach(ele => {
-    //     toast(ele.message, {
-    //       type: ele.type
-    //     })
-    //   });
-    //   clearErrors();
-    // }
+    if (toasts) {
+      toasts.forEach(ele => {
+        toast(ele.message, {
+          type: ele.type
+        })
+      });
+      clearErrors();
+    }
   }, [toasts, isAuthenticated, clearErrors, navigate])
 
   //api
@@ -62,7 +81,7 @@ export default function Home() {
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7}
         sx={{
-          backgroundImage: 'url(http://source.unsplash.com/random)',
+          backgroundImage: `url(${imageUrl})`,
           backgroundRepeat: 'no-repeat',
           backgroundColor: (t) =>
             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

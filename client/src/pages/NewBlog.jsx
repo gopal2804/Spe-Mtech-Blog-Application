@@ -40,12 +40,12 @@ export default function NewBlog() {
       getBlogs();
     }
 
-    // if (toasts) {
-    //   toasts.forEach(ele => {
-    //     toast(ele.message, { type: ele.type })
-    //   });
-    //   clearErrors();
-    // }
+    if (toasts) {
+      toasts.forEach(ele => {
+        toast(ele.message, { type: ele.type })
+      });
+      clearErrors();
+    }
 
     if(blogCreated){
       const id=currentBlog._id;
