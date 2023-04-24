@@ -1,0 +1,42 @@
+# docker version comonlly used
+# this specifies the version of docker compose file
+version: '3.7'
+
+# this  tell about all the services you want to start(like here we have 2 Dockerfile) 
+services:
+  # this is the name of the backend service name (can give any name)
+  api-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: blog-app-server
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+    container_name: blog-app-server-container
+    command: npm start
+
+ 
+
+  # this is front end service name
+  react-app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: blog-app-client
+    # to access directly from the terminal we are setting this to true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+
+    networks:
+      - mern-app
+    container_name: blog-app-client-container
+    command: npm start
+    
+
+# to set the network between the services 
+networks:
+  mern-app:
+    driver: bridge

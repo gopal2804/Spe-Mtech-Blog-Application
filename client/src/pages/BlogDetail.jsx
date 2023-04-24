@@ -31,11 +31,11 @@ export default function BlogDetail() {
       getBlogById(id);
     }
 
-    if(toasts) {
-        toasts.forEach(ele => {
-          toast(ele.message, { type: ele.type })
-      });
-    }
+    // if(toasts) {
+    //     toasts.forEach(ele => {
+    //       toast(ele.message, { type: ele.type })
+    //   });
+    // }
 
     if (currentBlog?._id === id) {
       setBlog(currentBlog);

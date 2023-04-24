@@ -1,5 +1,5 @@
 # node version
-FROM node:16.14.2
+FROM node:16.14.2-alpine
 
 #This sets the working directory inside the container to /usr/src/app. This is where the application will be located.
 WORKDIR /usr/src/app
