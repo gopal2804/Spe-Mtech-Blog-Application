@@ -1,6 +1,6 @@
 # docker version comonlly used
 # this specifies the version of docker compose file
-version: '3.7'
+version: '3'
 
 # this  tell about all the services you want to start(like here we have 2 Dockerfile) 
 services:
