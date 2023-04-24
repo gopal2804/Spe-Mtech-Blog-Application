@@ -4,6 +4,7 @@ const jwt=require('jsonwebtoken');
 const colors=require('colors');
 const { json } = require('express');
 const dotenv=require('dotenv').config();
+const logger = require("../utils/logger");
 
 //access-public
 const registerUser=async(req,res)=>{
@@ -21,11 +22,25 @@ const registerUser=async(req,res)=>{
 
         if(!email || !validatedEmail(email)) toasts.push({message: 'A valid email is required ',type:'error'});
 
-        if(toasts.length>0) return res.status(400).json(toasts);
+        if(toasts.length>0){
+
+            logger.log({
+                level: "info",
+                message: `Error while registration of username ${email}`,
+            });
+
+            return res.status(400).json(toasts);
+        } 
 
         //checking if the user already exists
         let newUser=await User.findOne({email});
-        if(newUser) return res.status(400).json([{message:'User already exists', type:'error'}]);
+        if(newUser){
+            logger.log({
+                level: "info",
+                message: `${email} already exists`,
+            });
+            return res.status(400).json([{message:'User already exists', type:'error'}]);
+        } 
 
         //or
         //user =new User({firstName:firstName, lastName:lastName, email:email, password:password})
@@ -38,6 +53,12 @@ const registerUser=async(req,res)=>{
 
         //now saving the user in database
         await newUser.save();
+
+        logger.log({
+            level: "info",
+            message: `${email} User created successfully`,
+        });
+
 
         //after saving will return the token to client
         const payload={
@@ -53,10 +74,16 @@ const registerUser=async(req,res)=>{
             res.json(token);
         });
 
+        
+
 
         
 
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error occured while user registration`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.statu(500).send('Server Error');
     }
@@ -72,17 +99,40 @@ const loginUser=async(req,res)=>{
         if(password && (password.length<8 || password.length>12)) toasts.push({message: 'Password must be at least 8-12 characters long',type:'error'});
         if(!email || !validatedEmail(email)) toasts.push({message: 'A valid email is required ',type:'error'});
         
-        if(toasts.length>0) return res.status(400).json(toasts);
+        if(toasts.length>0){
+            logger.log({
+                level: "info",
+                message: `Error while login in of username ${email}`,
+            });
+            return res.status(400).json(toasts);
+        } 
 
         //first checking weather the user exists or not
         let user=await User.findOne({email});
-        if(!user) return res.status(400).json([{message:'User does not exist', type:'error'}])
+        if(!user){
+            logger.log({
+                level: "info",
+                message: `${email} does not exixst`,
+            });
+            return res.status(400).json([{message:'User does not exist', type:'error'}])
+        } 
 
         //if user exists will varify the password now
         //password is password coming from bidy and user.password is password stored in backend
         const isMatch=await bcrypt.compare(password,user.password);
 
-        if(!isMatch) return res.status(400).json([{message:'Invalid credentials', type:'error'}]);
+        if(!isMatch){
+            logger.log({
+                level: "info",
+                message: `${email} password does not match`,
+            });
+            return res.status(400).json([{message:'Invalid credentials', type:'error'}]);
+        } 
+
+        logger.log({
+            level: "info",
+            message: `${email} logged in successfully`,
+        });
 
         //now will create token
         const payload={
@@ -98,9 +148,15 @@ const loginUser=async(req,res)=>{
             res.json(token);
         });
 
+        
+
 
 
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error while login`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
@@ -117,11 +173,30 @@ const getProfile=async(req,res)=>{
         .select('-password').select('-__v')
         .select('-createdAt').select('-updatedAt');
 
-        if(!user) return res.status(404).json([{message:'User does not exist',type:'error'}]);
+        if(!user) 
+        {
+            logger.log({
+                level: "info",
+                message: `${user.email} does not exist`,
+            });
+            return res.status(404).json([{message:'User does not exist',type:'error'}]);
+
+        }   
         
+        logger.log({
+            level: "info",
+            message: `${user.email} profile view`,
+        });
+
         res.json(user);
 
+        
+
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error while profile viewing`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.statu(500).send('Server Error');
     }
@@ -138,10 +213,22 @@ const updateUser=async(req,res)=>{
 
         if(!user) return res.status(404).json([{message: 'User does not exist', type:'error'}]);
 
+
+        logger.log({
+            level: "info",
+            message: `${user.email} updated the profile successfully`,
+        });
+
         res.json(user);
+
+        
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Errro occured while updating the profile`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
-        res.statu(500).send('Server Error');
+        res.status(500).send('Server Error');
     }
 }
 

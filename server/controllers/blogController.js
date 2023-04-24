@@ -1,5 +1,7 @@
 const Blog =require('../models/Blog');
 const colors=require('colors');
+const logger = require("../utils/logger");
+
 
 //get the blog by user id
 //afte the token verification user can only access the blog
@@ -7,8 +9,21 @@ const colors=require('colors');
 const getBlogs=async(req,res)=>{
     try{
         const blogs=await Blog.find({user:req.user.id});
+
+        logger.log({
+            level: "info",
+            message: `Blog retrieved successfully`,
+        });
+
         res.json(blogs);
+
+        
+
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error while accessing the blogs`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.statu(500).send('Server Error');
     }
@@ -17,14 +32,34 @@ const getBlogs=async(req,res)=>{
 const getBlogById=async(req,res)=>{
     try{
         const blog=await Blog.findOne({_id:req.params.id, user:req.user.id});
-        if(!blog) return res.status(404).json([
-            {
-                message: 'Blog not found',
-                type: 'error'
-            }
-        ])
+        if(!blog) 
+        {
+            logger.log({
+                level: "info",
+                message: `Blog with id ${blog.id} does not exist`,
+            });
+
+            return res.status(404).json([
+                {
+                    message: 'Blog not found',
+                    type: 'error'
+                }
+            ])
+        }
+        
+        logger.log({
+            level: "info",
+            message: `Blog with id ${blog.id} retrieved successfully`,
+        });
         res.json(blog);
+
+        
+
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error while accessing the blog`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
@@ -42,11 +77,30 @@ const createBlog=async(req,res)=>{
         await newBlog.save();
 
         //if some error arised while saving the blog
-        if(!newBlog) return res.status(400).json([{message: 'Blog not created', type:'error'}]);
+        if(!newBlog) 
+        {
+            logger.log({
+                level: "info",
+                message: `Blog not created`,
+            });
+            return res.status(400).json([{message: 'Blog not created', type:'error'}]);
+        }
+        
+
+        logger.log({
+            level: "info",
+            message: `Blog created successfully`,
+        });
 
         res.json(newBlog);
 
+        
+
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error while creating the blog`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
@@ -60,10 +114,20 @@ const updateBlog=async(req,res)=>{
         //passing user id for token and blog id for searching
         //after updating will return a new object
         //blog id is coming from front end (from url)
+        logger.log({
+            level: "info",
+            message: `Blog Updated successfully`,
+        });
         const blog=await Blog.findOneAndUpdate({_id:req.params.id,user:req.user.id},{title,content},{new : true});  
         res.json(blog);
 
+        
+
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error while updating the blog`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.statu(500).send('Server Error');
     }
@@ -75,10 +139,20 @@ const deleteBlog=async(req,res)=>{
     try{
 
         const blog=await Blog.findOneAndDelete({_id:req.params.id,user:req.user.id});
+        logger.log({
+            level: "info",
+            message: `Blog deleted successfully`,
+        });
         res.json({
             blogId: req.params.id,
             toasts: [{message:'Blog deleted successfully',type:'success'}]});
+
+        
     }catch(error){
+        logger.log({
+            level: "info",
+            message: `Error while deleting the blog`,
+        });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
         res.status(500).send('Server Error');
     }
