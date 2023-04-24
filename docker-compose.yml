@@ -12,6 +12,8 @@ services:
     image: blog-app-server
     ports:
       - "5000:5000"
+    volumes:
+      - ./logs:/usr/src/app/logs  
     networks:
       - mern-app
     container_name: blog-app-server-container

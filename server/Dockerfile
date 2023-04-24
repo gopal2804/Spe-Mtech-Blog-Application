@@ -4,6 +4,9 @@ FROM node:16.14.2-alpine
 #This sets the working directory inside the container to /usr/src/app. This is where the application will be located.
 WORKDIR /usr/src/app
 
+# Change ownership of /usr/src/app/logs
+RUN mkdir logs && chown -R node:node logs
+
 #This copies the package.json and package-lock.json (if present) files from the host machine to the /usr/src/app directory in the container.
 COPY package*.json ./
 
