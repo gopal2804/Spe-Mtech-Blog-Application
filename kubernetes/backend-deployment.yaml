@@ -28,8 +28,8 @@ spec:
         ports:
         - containerPort: 5000
         volumeMounts:
-        - name: log-volumne
-          mountPath: /var/log/my-app
+        - name: logs
+          mountPath: /app/logs
         env:
         - name: NODE_ENV
           value: production
@@ -41,6 +41,6 @@ spec:
             cpu: "0.5"
             memory: "500Mi"
       volumes:
-      - name: log-volumne
-        persistentVolumeClaim:
-          claimName: my-log-claim
+      - name: logs
+        hostPath:
+          path: /var/logs/Backendlogs
