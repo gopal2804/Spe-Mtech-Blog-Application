@@ -5,7 +5,7 @@ const { createLogger, format, transports } = require("winston");
 
 const { combine, timestamp, label, printf } = format;
 
-const logDir='/logs';
+const logDir='../logs';
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);

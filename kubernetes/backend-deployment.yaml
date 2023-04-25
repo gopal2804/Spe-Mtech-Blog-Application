@@ -33,8 +33,6 @@ spec:
         env:
         - name: NODE_ENV
           value: production
-        stdout: true
-        stderr: true
         resources:
           limits:
             cpu: "1"
@@ -45,5 +43,5 @@ spec:
       volumes:
       - name: logs
         hostPath:
-          path: /logs
+          path: /Desktop/Semester_2/SPE/MajorProject/Spe-Mtech-Blog-Application/logs
           type: DirectoryOrCreate
