@@ -29,7 +29,7 @@ spec:
         - containerPort: 5000
         volumeMounts:
         - name: logs
-          mountPath: /usr/src/app/logs
+          mountPath: ../logs
         env:
         - name: NODE_ENV
           value: production
