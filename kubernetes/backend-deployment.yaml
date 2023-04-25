@@ -1,0 +1,44 @@
+# This specifies the API version of Kubernetes that this deployment will use.
+apiVersion: apps/v1
+# This specifies the type of Kubernetes object that we are defining, in this case, a deployment.
+kind: Deployment
+
+# This section contains metadata about the deployment, such as its name.
+metadata:
+  name: backend
+spec:
+# This section specifies the desired state of the deployment. Here, we are asking for one replica of the backend application to be created.
+  replicas: 1
+# This section specifies how the deployment will identify the pods it manages. 
+# In this case, the deployment will select pods whose labels match the label app: backend.
+  selector:
+    matchLabels:
+      app: backend
+# This section specifies the pod template that the deployment will use. The labels field is used to attach labels to the pod.
+  template:
+    metadata:
+      labels:
+        app: backend
+# This section specifies the container definition for the pod. 
+# Here, we are defining a single container named backend that will run the ramrodwal/server:latest image.
+    spec:
+      containers:
+      - name: backend
+        image: gopal2804/blog_app_backend:latest
+        ports:
+        - containerPort: 5000
+        # volumeMounts:
+        # - name: logs
+        #   mountPath: /app/logs
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "0.5"
+            memory: "500Mi"
+      # volumes:
+      # - name: logs
+      #   hostPath:
+      #     path: /var/logs/Backendlogs
+      #     type: Directory
