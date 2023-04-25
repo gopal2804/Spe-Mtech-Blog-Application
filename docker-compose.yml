@@ -7,7 +7,7 @@ services:
   # this is the name of the backend service name (can give any name)
   api-server:
     build:
-      context: ./server
+      context: /home/gopal/Desktop/Semester_2/SPE/MajorProject/Spe-Mtech-Blog-Application/server
       dockerfile: Dockerfile
     image: gopal2804/blog_app_backend
     ports:
@@ -24,7 +24,7 @@ services:
   # this is front end service name
   react-app:
     build:
-      context: ./client
+      context: /home/gopal/Desktop/Semester_2/SPE/MajorProject/Spe-Mtech-Blog-Application/client
       dockerfile: Dockerfile
     image: gopal2804/blog_app_frontend
     # to access directly from the terminal we are setting this to true
