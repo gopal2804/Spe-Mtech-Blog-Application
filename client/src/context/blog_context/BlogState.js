@@ -5,7 +5,7 @@ import * as ActionTypes from '../ContextActions';
 
 export const BlogContext=createContext();
 
-let PORT=30494
+let PORT=31024
 
 export default function BlogState(props){
     const initialState={
