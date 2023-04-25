@@ -2,6 +2,7 @@ import { createContext,useReducer } from "react";
 import axios from 'axios';
 import BlogReducer from "./BlogReducer";
 import * as ActionTypes from '../ContextActions';
+import constant from "../../constants/constant";
 
 export const BlogContext=createContext();
 
@@ -29,7 +30,7 @@ export default function BlogState(props){
     const getBlogs=async()=>{
         try{
             // const res=await axios.get('http://localhost:5000/api/blogs/view',config);
-            const res=await axios.get('http://192.168.58.2:31493/api/blogs/view',config);
+            const res=await axios.get(`http://192.168.58.2:${port}/api/blogs/view`,config);
             dispatch({
                 type: ActionTypes.GET_BLOGS_SUCCESS,
                 payload:res.data
@@ -46,7 +47,7 @@ export default function BlogState(props){
     const getBlogById=async(blogId)=>{
         try{
             // const res=await axios.get(`http://localhost:5000/api/blogs/${blogId}`,config);
-            const res=await axios.get(`http://192.168.58.2:31493/api/blogs/${blogId}`,config);
+            const res=await axios.get(`http://192.168.58.2:${port}/api/blogs/${blogId}`,config);
             dispatch({
                 type: ActionTypes.GET_BLOG_BY_ID,
                 payload: res.data
@@ -63,7 +64,7 @@ export default function BlogState(props){
     const createBlog=async(blogData)=>{
         try{
             // const res=await axios.post('http://localhost:5000/api/blogs/create',blogData,config);
-            const res=await axios.post('http://192.168.58.2:31493/api/blogs/create',blogData,config);
+            const res=await axios.post(`http://192.168.58.2:${port}/api/blogs/create`,blogData,config);
             dispatch({
                 type: ActionTypes.NEW_BLOG_SUCCESS,
                 payload: res.data
@@ -80,7 +81,7 @@ export default function BlogState(props){
     const updateBlog=async(blogData)=>{
         try{
             // const res=await axios.put(`http://localhost:5000/api/blogs/update/${blogData._id}`,blogData,config);
-            const res=await axios.put(`http://192.168.58.2:31493/api/blogs/update/${blogData._id}`,blogData,config);
+            const res=await axios.put(`http://192.168.58.2:${port}/api/blogs/update/${blogData._id}`,blogData,config);
             dispatch({
                 type:ActionTypes.UPDATE_BLOG_SUCCESS,
                 payload:res.data
@@ -97,7 +98,7 @@ export default function BlogState(props){
     const deleteBlog=async(blogId)=>{
         try{
             // const res=await axios.delete(`http://localhost:5000/api/blogs/delete/${blogId}`,config);
-            const res=await axios.delete(`http://192.168.58.2:31493/api/blogs/delete/${blogId}`,config);
+            const res=await axios.delete(`http://192.168.58.2:${port}/api/blogs/delete/${blogId}`,config);
             dispatch({
                 type: ActionTypes.BLOG_DELETE,
                 payload: res.data

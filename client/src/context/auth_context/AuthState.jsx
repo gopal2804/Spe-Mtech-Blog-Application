@@ -2,6 +2,7 @@ import { createContext,useReducer } from "react";
 import axios from 'axios';
 import authReducer from './authReducer';
 import * as ActionTypes from '../ContextActions';
+import constant from "../../constants/constant";
 
 export const AuthContext=createContext();
 
@@ -28,7 +29,7 @@ export default function AuthState(props){
         try{
             // const res=await axios.post('http://localhost:5000/api/users/register',userData,config);
             //for kubernetes
-            const res=await axios.post('http://192.168.58.2:31493/api/users/register',userData,config);
+            const res=await axios.post(`http://192.168.58.2:${port}/api/users/register`,userData,config);
             dispatch({
                 type: ActionTypes.REGISTER_SUCCESS,
                 payload:res.data,
@@ -46,7 +47,7 @@ export default function AuthState(props){
     const loginUser=async(userData)=>{
         try{
             // const res=await axios.post('http://localhost:5000/api/users/login',userData,config);
-            const res=await axios.post('http://192.168.58.2:31493/api/users/login',userData,config);
+            const res=await axios.post(`http://192.168.58.2:${port}/api/users/login`,userData,config);
             dispatch({
                 type: ActionTypes.LOGIN_SUCCESS,
                 payload:res.data,
@@ -77,7 +78,7 @@ export default function AuthState(props){
     const getProfile=async()=>{
         try{
             // const res=await axios.get('http://localhost:5000/api/users/profile',config);
-            const res=await axios.get('http://192.168.58.2:31493/api/users/profile',config);
+            const res=await axios.get(`http://192.168.58.2:${port}/api/users/profile`,config);
             dispatch({
                 type: ActionTypes.SET_CURRENT_USER,
                 payload:res.data,
@@ -95,7 +96,7 @@ export default function AuthState(props){
     const updateUser=async(userData)=>{
         try{
             // const res=await axios.put(`http://localhost:5000/api/users/update/${userData._id}`,userData,config);
-            const res=await axios.put(`http://192.168.58.2:31493/api/users/update/${userData._id}`,userData,config);
+            const res=await axios.put(`http://192.168.58.2:${port}/api/users/update/${userData._id}`,userData,config);
             dispatch({
                 type: ActionTypes.SET_CURRENT_USER,
                 payload:res.data,
