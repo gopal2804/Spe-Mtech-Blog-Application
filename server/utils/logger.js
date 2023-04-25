@@ -13,7 +13,7 @@ const logger = createLogger({
     new transports.Console(),
     new winston.transports.File({
       // filename: "/usr/src/app/logs/Blog-log.log",
-      filename: "/home/gopal/Desktop/Semester_2/SPE/MajorProject/Spe-Mtech-Blog-Application/logs/Blog-log.log",
+      filename: "./logs/Blog-log.log",
       level: "info",
     }),
   ],
