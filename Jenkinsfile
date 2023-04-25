@@ -49,5 +49,16 @@ pipeline {
                 }
             }
         }
+        stage('Ansible Deploy Stage') {
+				steps {
+					ansiblePlaybook becomeUser: 'null',
+					colorized: true,
+					installation: 'Ansible',
+					inventory: 'inventory',
+					playbook: 'playbook.yml',
+					sudoUser: 'null',
+					vaultCredentialsId: 'Ansible'
+				}
+			}
     }
 }
