@@ -43,4 +43,4 @@ spec:
       volumes:
       - name: logs
         hostPath:
-          path: /var/logs/Backendlogs
+          path: /home/gopal/Desktop/Semester_2/SPE/MajorProject/Spe-Mtech-Blog-Application/logs
