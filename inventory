@@ -1,2 +1,2 @@
 [client1]
-172.16.135.199 ansible_ssh_user=gopal ansible_ssh_pass=12345 sudo=gopal ansible_sudo_pass=12345 
+172.17.0.1 ansible_ssh_user=gopal ansible_ssh_pass=12345 sudo=gopal ansible_sudo_pass=12345 
