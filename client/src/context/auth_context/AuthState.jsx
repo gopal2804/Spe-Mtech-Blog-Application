@@ -2,9 +2,11 @@ import { createContext,useReducer } from "react";
 import axios from 'axios';
 import authReducer from './authReducer';
 import * as ActionTypes from '../ContextActions';
-import constant from "../../constants/constant";
+
 
 export const AuthContext=createContext();
+
+let PORT=31866
 
 export default function AuthState(props){
 
@@ -29,13 +31,13 @@ export default function AuthState(props){
         try{
             // const res=await axios.post('http://localhost:5000/api/users/register',userData,config);
             //for kubernetes
-            const res=await axios.post(`http://192.168.58.2:${constant.port}/api/users/register`,userData,config);
+            const res=await axios.post(`http://192.168.58.2:${PORT}/api/users/register`,userData,config);
             dispatch({
                 type: ActionTypes.REGISTER_SUCCESS,
                 payload:res.data,
             })
         }catch(error){
-            // console.log(error.response.data);
+            console.log(error.response.data);
             dispatch({
                 type: ActionTypes.REGISTER_FAIL,
                 payload:error.response.data
@@ -47,13 +49,15 @@ export default function AuthState(props){
     const loginUser=async(userData)=>{
         try{
             // const res=await axios.post('http://localhost:5000/api/users/login',userData,config);
-            const res=await axios.post(`http://192.168.58.2:${constant.port}/api/users/login`,userData,config);
+            // console.log(`http://192.168.58.2:${PORT}/api/users/login`);
+            // console.log(`${PORT}`)
+            const res=await axios.post(`http://192.168.58.2:${PORT}/api/users/login`,userData,config);
             dispatch({
                 type: ActionTypes.LOGIN_SUCCESS,
                 payload:res.data,
             })
         }catch(error){
-            // console.log(error.response.data);
+            console.log(error.response.data);
             dispatch({
                 type: ActionTypes.LOGIN_FAIL,
                 payload:error.response.data
@@ -78,7 +82,7 @@ export default function AuthState(props){
     const getProfile=async()=>{
         try{
             // const res=await axios.get('http://localhost:5000/api/users/profile',config);
-            const res=await axios.get(`http://192.168.58.2:${constant.port}/api/users/profile`,config);
+            const res=await axios.get(`http://192.168.58.2:${PORT}/api/users/profile`,config);
             dispatch({
                 type: ActionTypes.SET_CURRENT_USER,
                 payload:res.data,
@@ -96,7 +100,7 @@ export default function AuthState(props){
     const updateUser=async(userData)=>{
         try{
             // const res=await axios.put(`http://localhost:5000/api/users/update/${userData._id}`,userData,config);
-            const res=await axios.put(`http://192.168.58.2:${constant.port}/api/users/update/${userData._id}`,userData,config);
+            const res=await axios.put(`http://192.168.58.2:${PORT}/api/users/update/${userData._id}`,userData,config);
             dispatch({
                 type: ActionTypes.SET_CURRENT_USER,
                 payload:res.data,
