@@ -44,6 +44,7 @@ export default function Register() {
           })
       });
       clearErrors();
+      
     }
   },[toasts,isAuthenticated,clearErrors,navigate])
 
