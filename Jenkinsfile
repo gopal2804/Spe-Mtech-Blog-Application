@@ -48,6 +48,7 @@ pipeline {
                     }
                 }
             }
+            
         }
         stage('Ansible Deploy Stage') {
 				steps {
