@@ -27,9 +27,12 @@ spec:
         image: gopal2804/blog_app_backend:latest
         ports:
         - containerPort: 5000
-        # volumeMounts:
-        # - name: logs
-        #   mountPath: /app/logs
+        volumeMounts:
+        - name: logs
+          mountPath: /usr/src/app/logs
+        env:
+        - name: NODE_ENV
+          value: production
         resources:
           limits:
             cpu: "1"
@@ -37,8 +40,7 @@ spec:
           requests:
             cpu: "0.5"
             memory: "500Mi"
-      # volumes:
-      # - name: logs
-      #   hostPath:
-      #     path: /var/logs/Backendlogs
-      #     type: Directory
+      volumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: blog-logs-claim
