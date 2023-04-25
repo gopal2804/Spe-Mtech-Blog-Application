@@ -35,7 +35,7 @@ export default function AuthState(props){
                 payload:res.data,
             })
         }catch(error){
-            console.log(error.response.data);
+            // console.log(error.response.data);
             dispatch({
                 type: ActionTypes.REGISTER_FAIL,
                 payload:error.response.data
@@ -53,7 +53,7 @@ export default function AuthState(props){
                 payload:res.data,
             })
         }catch(error){
-            console.log(error.response.data);
+            // console.log(error.response.data);
             dispatch({
                 type: ActionTypes.LOGIN_FAIL,
                 payload:error.response.data
