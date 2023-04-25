@@ -5,7 +5,7 @@ const { createLogger, format, transports } = require("winston");
 
 const { combine, timestamp, label, printf } = format;
 
-const logDir='../logs';
+const logDir='/home/gopal/Desktop/Semester_2/SPE/MajorProject/Spe-Mtech-Blog-Application/logs';
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
