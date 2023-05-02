@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
-    "test": "jest --watchAll"
+    "server": "nodemon server.js"
   },
   "author": "gopal",
   "license": "ISC",
