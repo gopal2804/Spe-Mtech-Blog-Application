@@ -85,7 +85,7 @@ const registerUser=async(req,res)=>{
             message: `Error occured while user registration`,
         });
         console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
-        res.statu(500).send('Server Error');
+        res.status(500).send('Server Error');
     }
 }
 

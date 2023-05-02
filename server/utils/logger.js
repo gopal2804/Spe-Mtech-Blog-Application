@@ -22,7 +22,8 @@ const logger = createLogger({
   transports: [
     new transports.Console(),
     new winston.transports.File({
-      filename: "/usr/src/app/logs/Blog-log.log",
+      // filename: "/usr/src/app/logs/Blog-log.log",
+      filename: './Blog-logg.log',
       // filename: `${logDir}/Blog-log.log`,
       level: "info",
     }),
