@@ -18,7 +18,7 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 
 
 const logger = createLogger({
-  format: combine(label({ label: "" }), timestamp(), myFormat),
+  format: combine(label({ label: "" }), timestamp()),
   transports: [
     new transports.Console(),
     new winston.transports.File({
