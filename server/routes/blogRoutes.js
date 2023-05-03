@@ -7,7 +7,8 @@ const{
     createBlog,   
     updateBlog,
     deleteBlog,
-    getBlogById
+    getBlogById,
+    getAllBlogs
 }=require('../controllers/blogController');
 
 router.get('/get-all-user-blogs',getAllBlogs);

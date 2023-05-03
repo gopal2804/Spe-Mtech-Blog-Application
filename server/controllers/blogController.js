@@ -174,5 +174,6 @@ module.exports={
     updateBlog,
     createBlog,
     getBlogs,
-    getBlogById 
+    getBlogById,
+    getAllBlogs 
 }
