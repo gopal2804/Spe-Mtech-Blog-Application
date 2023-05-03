@@ -20,4 +20,3 @@
     # which will now become dangling images are removed
     - name: Prune the dangling Docker images
       command: docker image prune --force
-      # 
