@@ -29,6 +29,17 @@ const getBlogs=async(req,res)=>{
     }
 }
 
+const getAllBlogs=async(req,res)=>{
+    try{
+        const blogs=await Blog.find({});
+        // console.log(blogs[1].title)
+        res.json(blogs);
+    }catch(error){
+        console.error(`ERROR: ${error.message}`.bgRed.underline.bold);
+        res.status(500).send('Server Error');
+    }
+}
+
 const getBlogById=async(req,res)=>{
     try{
         const blog=await Blog.findOne({_id:req.params.id, user:req.user.id});

@@ -10,6 +10,8 @@ const{
     getBlogById
 }=require('../controllers/blogController');
 
+router.get('/get-all-user-blogs',getAllBlogs);
+
 router.get('/view',[auth],getBlogs);
 
 router.post('/create',[auth],createBlog);
